@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>This is show page.</h3>
+<div class="d-flex flex-wrap justify-content-center">
+{% for info in data %}
+  
+  <div class="col-sm-3">
+    <div class="card m-3">
+      <div class="card-body">
+        <h5 class="card-title"> Title : {{info.Task_title}}</h5>
+        <p class="card-text"> Discription : {{info.Task_discription}}</p>
+        <p class="card-text">{{info.Task_assign_date}}</p>
+        {% comment %} category {% endcomment %}
+        <p> Category :
+          {% for category in info.categories.all %}
+            <button class="btn btn-primary" disabled >{{category.Category_name}}</button>
+          {% endfor %}
+        </p>
+        <p></p>
+        {% if info.Is_completed %}
+          <strong class="btn btn-success" disabled >Completed</strong>
+        {% else %}
+          <a href="{% url 'edittask' info.id %}" class="btn btn-warning">Edit</a>
+          <a href="{% url 'deletetask' info.id %}" class="btn btn-danger">Delete</a>
+        {% endif %}
+        
+      </div>
+    </div>
+  </div>
+  
+  
+{% endfor %}
+</div>
+{% endblock content %}
